@@ -1,0 +1,1 @@
+"""Tests for timeago library."""
