@@ -1,8 +1,11 @@
 """Tests for edge cases and special scenarios."""
 
-import pytest
 from datetime import datetime, timedelta, timezone
-from timeago import format as timeago_format, parse
+
+import pytest
+
+from timeago import format as timeago_format
+from timeago import parse
 from timeago.errors import TimeagoError
 
 
@@ -49,6 +52,7 @@ class TestTimezoneAwareness:
     def test_both_aware_different_tz(self):
         """Different aware timezones should work (same instant)."""
         from datetime import timezone as tz_class
+
         tz_utc = timezone.utc
         tz_plus_1 = tz_class(timedelta(hours=1))
 
@@ -200,6 +204,7 @@ class TestParseEdgeCases:
     def test_parse_exact_roundtrip_simple(self):
         """Simple format-parse-format roundtrip."""
         from timeago import format as timeago_format
+
         now = datetime(2024, 1, 1, 12, 0, 0)
         past = now - timedelta(hours=3)
         formatted = timeago_format(past, now)

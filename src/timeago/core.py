@@ -1,12 +1,11 @@
 """Core timeago formatting logic."""
 
 from datetime import datetime, timedelta
+
 from timeago.errors import TimeagoError
 
 
-def format(
-    dt: datetime, now: datetime | None = None, granularity: int = 1
-) -> str:
+def format(dt: datetime, now: datetime | None = None, granularity: int = 1) -> str:
     """Format a datetime as a relative time string.
 
     Args:
@@ -23,8 +22,11 @@ def format(
     _validate_inputs(dt, now, granularity)
     now = now or datetime.now()
     delta = now - dt
-    return (_format_future(-delta, granularity) if delta.total_seconds() < 0
-            else _format_past(delta, granularity))
+    return (
+        _format_future(-delta, granularity)
+        if delta.total_seconds() < 0
+        else _format_past(delta, granularity)
+    )
 
 
 def _validate_inputs(dt: object, now: object, granularity: int) -> None:
@@ -39,21 +41,15 @@ def _validate_inputs(dt: object, now: object, granularity: int) -> None:
 def _validate_datetime(dt: object, name: str) -> None:
     """Validate that an object is a datetime instance."""
     if not isinstance(dt, datetime):
-        raise TimeagoError(
-            f"Expected datetime for {name}, got {type(dt).__name__}"
-        )
+        raise TimeagoError(f"Expected datetime for {name}, got {type(dt).__name__}")
 
 
 def _validate_granularity(granularity: int) -> None:
     """Validate that granularity is a positive integer."""
     if not isinstance(granularity, int):
-        raise TimeagoError(
-            f"granularity must be int, got {type(granularity).__name__}"
-        )
+        raise TimeagoError(f"granularity must be int, got {type(granularity).__name__}")
     if granularity <= 0:
-        raise TimeagoError(
-            f"granularity must be positive, got {granularity}"
-        )
+        raise TimeagoError(f"granularity must be positive, got {granularity}")
 
 
 def _validate_timezone_compatibility(dt: datetime, now: datetime) -> None:
@@ -62,9 +58,7 @@ def _validate_timezone_compatibility(dt: datetime, now: datetime) -> None:
     now_aware = now.tzinfo is not None
 
     if dt_aware != now_aware:
-        raise TimeagoError(
-            "Cannot mix naive and aware datetimes"
-        )
+        raise TimeagoError("Cannot mix naive and aware datetimes")
 
 
 def _format_past(delta: timedelta, granularity: int) -> str:

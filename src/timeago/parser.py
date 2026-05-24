@@ -2,6 +2,7 @@
 
 import re
 from datetime import timedelta
+
 from timeago.errors import TimeagoError
 
 
@@ -52,11 +53,12 @@ def _parse_units(text: str) -> timedelta:
         "year": 31536000,
     }
 
-    pattern = r"^(\d+)\s+(second|minute|hour|day|week|month|year)s?(,\s*(\d+)\s+(second|minute|hour|day|week|month|year)s?)*$"
+    unit_pattern = r"second|minute|hour|day|week|month|year"
+    pattern = rf"^(\d+)\s+({unit_pattern})s?(,\s*(\d+)\s+({unit_pattern})s?)*$"
     if not re.match(pattern, text.strip()):
         raise TimeagoError(f"Invalid format: {text}")
 
-    pattern_units = r"(\d+)\s+(second|minute|hour|day|week|month|year)s?"
+    pattern_units = rf"(\d+)\s+({unit_pattern})s?"
     matches = re.findall(pattern_units, text)
 
     if not matches:

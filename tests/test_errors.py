@@ -1,8 +1,11 @@
 """Tests for error handling and TimeagoError."""
 
-import pytest
 from datetime import datetime, timedelta, timezone
-from timeago import format as timeago_format, parse
+
+import pytest
+
+from timeago import format as timeago_format
+from timeago import parse
 from timeago.errors import TimeagoError
 
 
@@ -257,6 +260,7 @@ class TestTypeErrors:
     def test_format_with_date(self):
         """Passing date (not datetime) may raise error."""
         from datetime import date
+
         d = date(2024, 1, 1)
         try:
             timeago_format(d, datetime.now())

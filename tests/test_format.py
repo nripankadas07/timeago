@@ -1,7 +1,9 @@
 """Tests for timeago.format() function."""
 
-import pytest
 from datetime import datetime, timedelta, timezone
+
+import pytest
+
 from timeago import format as timeago_format
 from timeago.errors import TimeagoError
 

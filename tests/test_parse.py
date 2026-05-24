@@ -1,7 +1,9 @@
 """Tests for timeago.parse() function."""
 
-import pytest
 from datetime import timedelta
+
+import pytest
+
 from timeago import parse
 from timeago.errors import TimeagoError
 
@@ -157,8 +159,9 @@ class TestParseRoundTrip:
 
     def test_roundtrip_one_hour(self):
         """Format -> parse -> format should preserve value."""
-        from timeago import format as timeago_format
         from datetime import datetime
+
+        from timeago import format as timeago_format
 
         now = datetime(2024, 1, 1, 12, 0, 0)
         past = now - timedelta(hours=1)
@@ -169,8 +172,9 @@ class TestParseRoundTrip:
 
     def test_roundtrip_multiple_units(self):
         """Round trip with granularity=2."""
-        from timeago import format as timeago_format
         from datetime import datetime
+
+        from timeago import format as timeago_format
 
         now = datetime(2024, 1, 1, 12, 0, 0)
         past = now - timedelta(hours=3, minutes=45)

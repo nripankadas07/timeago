@@ -1,7 +1,9 @@
 """Comprehensive tests for granularity parameter."""
 
-import pytest
 from datetime import datetime, timedelta
+
+import pytest
+
 from timeago import format as timeago_format
 from timeago.errors import TimeagoError
 
