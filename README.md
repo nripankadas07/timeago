@@ -5,7 +5,7 @@ Format datetime deltas as human-readable relative time strings ("3 hours ago", "
 ## Installation
 
 ```bash
-pip install timeago
+python -m pip install -e .
 ```
 
 ## Quick Start

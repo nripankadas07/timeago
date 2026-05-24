@@ -31,9 +31,11 @@ def format(dt: datetime, now: datetime | None = None, granularity: int = 1) -> s
 
 def _validate_inputs(dt: object, now: object, granularity: int) -> None:
     """Validate all inputs."""
-    _validate_datetime(dt, "dt")
+    if not isinstance(dt, datetime):
+        raise TimeagoError(f"Expected datetime for dt, got {type(dt).__name__}")
     if now is not None:
-        _validate_datetime(now, "now")
+        if not isinstance(now, datetime):
+            raise TimeagoError(f"Expected datetime for now, got {type(now).__name__}")
         _validate_timezone_compatibility(dt, now)
     _validate_granularity(granularity)
 
@@ -133,7 +135,7 @@ def _format_units(units: dict[str, int], granularity: int) -> list[str]:
     Only includes non-zero units, up to granularity limit.
     """
     unit_names = ["years", "months", "weeks", "days", "hours", "minutes", "seconds"]
-    parts = []
+    parts: list[str] = []
 
     for unit in unit_names:
         if len(parts) >= granularity:
